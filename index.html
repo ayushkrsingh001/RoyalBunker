@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Bunkers Reloaded | Enter The Arena</title>
+    <meta name="description"
+        content="Royal Bunkers Reloaded - The ultimate underground gaming arena. High-end PCs, PS5, VR, and more. Enter the thrill.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="timing.css">
+    <link rel="stylesheet" href="cafe.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="glitch" data-text="ROYAL BUNKERS RELOADED">ROYAL BUNKERS RELOADED</h1>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <p class="loading-text">INITIALIZING SYSTEM...</p>
+        </div>
+    </div>
+
+    <!-- Background Particles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">ROYAL <span class="accent">BUNKERS</span></div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="#cafe">Menu</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="glitch-large" data-text="ROYAL BUNKERS RELOADED">ROYAL BUNKERS RELOADED</h1>
+            <h2 class="typing-text"><span id="typewriter"></span><span class="cursor">|</span></h2>
+            <a href="#about" class="cta-button">Explore The Bunker</a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrows">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <div class="section-container">
+            <h2 class="section-title">About <span class="accent">Royal Bunkers Reloaded</span></h2>
+            <h3
+                style="text-align: center; color: var(--accent-blue); margin-top: 20px; margin-bottom: 50px; font-weight: 300; letter-spacing: 2px;">
+                Where Gaming Meets Premium Living</h3>
+
+            <div class="section-desc" style="max-width: 900px; text-align: center; margin-bottom: 60px;">
+                <p style="margin-bottom: 25px;">
+                    <strong style="color: #fff;">Royal Bunkers Reloaded</strong> is a premium in-house gaming arena
+                    designed for students and residents of <strong>Royal Castle Hostel & PG</strong>. Built with
+                    high-performance gaming setups, professional pool tables, PlayStation consoles, and a comfortable
+                    lounge atmosphere, it offers the perfect space for entertainment, tournaments, and late-night
+                    matches.
+                </p>
+                <div style="width: 100px; height: 1px; background: rgba(255,255,255,0.1); margin: 20px auto;"></div>
+                <p style="margin-bottom: 25px;">
+                    <strong style="color: #fff;">Royal Castle Hostel & PG</strong> is a modern residential facility
+                    providing secure, comfortable, and student-friendly accommodation. With quality living spaces,
+                    essential amenities, and a vibrant community environment, the hostel ensures both comfort and
+                    lifestyle balance.
+                </p>
+                <div style="width: 100px; height: 1px; background: rgba(255,255,255,0.1); margin: 20px auto;"></div>
+                <p>
+                    Royal Bunkers Reloaded is proudly operated under Royal Castle Hostel & PG by <strong
+                        style="color: var(--accent-purple);">Sadguru Corporation</strong>, committed to delivering
+                    premium facilities, innovation-driven services, and a high-quality living experience.
+                </p>
+            </div>
+
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="icon">🛡️</div>
+                    <h3>Secure Environment</h3>
+                    <p>Safe & Monitored Space</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">🎮</div>
+                    <h3>Premium Infrastructure</h3>
+                    <p>High-End Gaming Setup</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">👥</div>
+                    <h3>Student Community</h3>
+                    <p>Vibrant & Friendly</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">�</div>
+                    <h3>Sadguru Corp</h3>
+                    <p>Professional Management</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="fade-in">
+        <div class="section-container">
+            <h2 class="section-title">The Bunker <span class="accent">Gaming Arena</span></h2>
+            <div class="games-grid">
+
+                <!-- American Pool -->
+                <div class="game-card" data-tilt>
+                    <div class="card-content">
+                        <div class="game-icon">🎱</div>
+                        <h3>American Pool</h3>
+                        <p class="subtitle">Professional Size</p>
+                        <p class="desc">Full-size American pool table designed for competitive and professional
+                            gameplay.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <!-- Big Pool Table -->
+                <div class="game-card" data-tilt>
+                    <div class="card-content">
+                        <div class="game-icon">🎱</div>
+                        <h3>Big Pool Table</h3>
+                        <p class="subtitle">Group Matches</p>
+                        <p class="desc">Large format pool table perfect for group matches and tournaments.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <!-- Medium Pool Table -->
+                <div class="game-card" data-tilt>
+                    <div class="card-content">
+                        <div class="game-icon">🎱</div>
+                        <h3>Medium Pool Table</h3>
+                        <p class="subtitle">Casual Play</p>
+                        <p class="desc">Balanced size table ideal for casual and competitive play.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <!-- Mini Pool Table -->
+                <div class="game-card" data-tilt>
+                    <div class="card-content">
+                        <div class="game-icon">🎱</div>
+                        <h3>Mini Pool Table</h3>
+                        <p class="subtitle">Quick Fun</p>
+                        <p class="desc">Compact pool table for quick fun matches and small space gaming.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <!-- PlayStation 5 -->
+                <div class="game-card" data-tilt>
+                    <div class="card-content">
+                        <div class="game-icon">🎮</div>
+                        <h3>PlayStation 5</h3>
+                        <p class="subtitle">Next-Gen Ultra HD</p>
+                        <p class="desc">Experience next-gen ultra HD gaming with high-speed performance and immersive
+                            graphics.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <!-- PlayStation 4 -->
+                <div class="game-card" data-tilt>
+                    <div class="card-content">
+                        <div class="game-icon">🎮</div>
+                        <h3>PlayStation 4</h3>
+                        <p class="subtitle">Classic Multiplayer</p>
+                        <p class="desc">Enjoy classic and popular multiplayer games with smooth performance and exciting
+                            gameplay.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="fade-in">
+        <div class="section-container">
+            <h2 class="section-title">Battle <span class="accent">Passes</span></h2>
+            <div class="pricing-grid">
+
+                <!-- PlayStation 5 -->
+                <div class="pricing-card popular">
+                    <div class="badge">NEXT GEN</div>
+                    <h3>PlayStation 5</h3>
+                    <div class="price">₹ XX<span>/hour</span></div>
+                    <p class="pricing-desc">Next-generation console experience with ultra HD graphics and high-speed
+                        performance.</p>
+                    <button class="select-plan book-btn" data-game="PlayStation 5">Equip Gear</button>
+                </div>
+
+                <!-- PlayStation 4 -->
+                <div class="pricing-card">
+                    <h3>PlayStation 4</h3>
+                    <div class="price">₹ XX<span>/hour</span></div>
+                    <p class="pricing-desc">Smooth and immersive console gaming with popular multiplayer titles.</p>
+                    <button class="select-plan book-btn" data-game="PlayStation 4">Equip Gear</button>
+                </div>
+
+                <!-- American Pool -->
+                <div class="pricing-card popular">
+                    <div class="badge">PRO CHOICE</div>
+                    <h3>American Pool</h3>
+                    <div class="price">₹ XX<span>/match</span></div>
+                    <p class="pricing-desc">Full-size American pool table designed for competitive matches.</p>
+                    <button class="select-plan book-btn" data-game="American Pool">Start Match</button>
+                </div>
+
+                <!-- Big Pool Table -->
+                <div class="pricing-card">
+                    <h3>Big Pool Table</h3>
+                    <div class="price">₹ XX<span>/match</span></div>
+                    <p class="pricing-desc">Large table ideal for tournaments and group matches.</p>
+                    <button class="select-plan book-btn" data-game="Big Pool Table">Start Match</button>
+                </div>
+
+                <!-- Medium Pool Table -->
+                <div class="pricing-card">
+                    <h3>Medium Pool Table</h3>
+                    <div class="price">₹ XX<span>/match</span></div>
+                    <p class="pricing-desc">Balanced size for both casual and competitive gameplay.</p>
+                    <button class="select-plan book-btn" data-game="Medium Pool Table">Start Match</button>
+                </div>
+
+                <!-- Mini Pool Table -->
+                <div class="pricing-card">
+                    <h3>Mini Pool Table</h3>
+                    <div class="price">₹ XX<span>/match</span></div>
+                    <p class="pricing-desc">Compact table for quick and fun matches.</p>
+                    <button class="select-plan book-btn" data-game="Mini Pool Table">Start Match</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Bunker Timing Section -->
+    <section id="timing" class="fade-in">
+        <div class="section-container">
+            <div class="timing-content-wrapper">
+                <h2 class="section-title large-glow">GAME ON. <span class="accent">ALL NIGHT LONG.</span></h2>
+                <div class="neon-divider"></div>
+
+                <div class="timing-card-minimal">
+
+                    <div class="timing-header">
+                        OPEN DAILY
+                    </div>
+                    <div class="timing-main">
+                        10:00 AM – 04:00 AM
+                    </div>
+                    <div class="timing-subtext">
+                        Late Night Gaming Arena | Weekend Ready | Tournament Friendly
+                    </div>
+                    <div class="minimal-clock">
+                        <span class="clock-icon">🕒</span> <span id="minimal-clock-time">00:00:00 AM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="fade-in">
+        <div class="section-container">
+            <h2 class="section-title">The <span class="accent">Arena</span> View</h2>
+            <div class="gallery-grid">
+                <!-- Using placeholder gradients for now since image generation is unavailable -->
+                <div class="gallery-item" style="background: linear-gradient(45deg, #111, #222);"></div>
+                <div class="gallery-item" style="background: linear-gradient(45deg, #1a1a1a, #333);"></div>
+                <div class="gallery-item" style="background: linear-gradient(45deg, #0d0d0d, #1f1f1f);"></div>
+                <div class="gallery-item" style="background: linear-gradient(45deg, #222, #111);"></div>
+                <div class="gallery-item" style="background: linear-gradient(45deg, #333, #1a1a1a);"></div>
+                <div class="gallery-item" style="background: linear-gradient(45deg, #1f1f1f, #0d0d0d);"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bunker Café Section -->
+    <section id="cafe" class="fade-in">
+        <div class="section-container">
+            <div class="cafe-hero">
+                <h2 class="section-title">Bunker <span class="accent">Café</span></h2>
+                <h3 class="cafe-sub">Refuel. Recharge. Game Again.</h3>
+                <p class="cafe-desc">
+                    Bunker Café is our in-house mini cafeteria inside Royal Bunkers Reloaded.
+                    Gamers can enjoy snacks, cold drinks, and quick bites while playing.
+                    Comfortable seating and quick service available.
+                </p>
+                <button class="btn-cafe" id="menu-btn">View Menu</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Modal Popup -->
+    <div class="modal-overlay" id="menu-modal">
+        <div class="menu-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">BUNKER <span class="accent">MENU</span></h2>
+                <button class="close-modal-btn" id="close-menu">&times;</button>
+            </div>
+            <div class="modal-body custom-scroll">
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Menu items will be injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <div class="section-container">
+            <h2 class="section-title">Locate <span class="accent">Base</span></h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>HQ Coordinates</h3>
+                    <p>Royal Castle - Hostel & PG</p>
+                    <p>Waghodia, Vadodara</p>
+                    <p>Gujarat 391760</p>
+                    <p>Map Mode: Online</p>
+
+                    <h3>Comms Channel</h3>
+                    <p>+91 98765 43210</p>
+                    <p>10:00 AM – 11:00 PM (All Days)</p>
+
+                    <div class="social-links">
+                        <a href="https://wa.me/919113104602?text=Hi%20Royal%20Bunkers%20Reloaded,%20I%20have%20a%20query."
+                            class="social-btn whatsapp" target="_blank">WhatsApp</a>
+                        <a href="https://www.instagram.com/royal_bunkers_reloaded_0.2?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                            class="social-btn instagram" target="_blank">Instagram</a>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <!-- Placeholder for Map -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.413754964269!2d73.3448!3d22.2882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fdb005e32a819%3A0x56fe2fe0dc012366!2sRoyal%20Castle%20-%20Hostel%20%26%20PG!5e0!3m2!1sen!2sin!4v1708170000000!5m2!1sen!2sin&t=k"
+                        width="100%" height="450" style="border:0; width: 100%; height: 100%; min-height: 400px;"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Royal Bunkers Reloaded | All Rights Reserved</p>
+        </div>
+        <button id="scrollTop" title="Go to top">▲</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

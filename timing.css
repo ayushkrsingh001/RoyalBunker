@@ -1,0 +1,188 @@
+/* =========================================
+ * ENHANCED TIMING SECTION
+ * ========================================= */
+#timing {
+    padding: 100px 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Container Adjustments */
+.timing-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Center vertically if needed */
+    width: 100%;
+    text-align: center;
+    /* Ensure text is centered */
+}
+
+.section-title.large-glow {
+    width: 100%;
+    text-align: center;
+    /* Strict centering */
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    /* Slightly larger to match image */
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.section-title .accent {
+    color: var(--accent-blue);
+    text-shadow: 0 0 20px var(--accent-blue);
+}
+
+
+/* The Purple Neon Line */
+.neon-divider {
+    width: 100%;
+    max-width: 400px;
+    /* Wider divider */
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #bd00ff, #bd00ff, transparent);
+    margin: 0 auto 60px auto;
+    /* More space */
+    box-shadow: 0 0 20px #bd00ff;
+    border-radius: 2px;
+}
+
+/* The Minimal Card (Left Aligned Content) */
+.timing-card-minimal {
+    background: rgba(10, 10, 12, 0.7);
+    /* Slightly darker/transparent */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 4px solid var(--accent-purple);
+    /* Top accent border instead of left */
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    /* Reset left border */
+    /* ... existing styles ... */
+    border-radius: 12px;
+    padding: 30px 40px;
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    /* KEY: Center Align Content */
+    align-items: center;
+    /* KEY: Center Align Flex Items */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.timing-card-minimal:hover {
+    transform: translateY(-5px);
+    border-left-color: var(--accent-blue);
+}
+
+.timing-header {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.timing-main {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    /* Larger numeric font */
+    font-weight: 700;
+    color: #fff;
+    /* Solid White */
+    margin: 20px 0 30px;
+
+    /* Box Styles matching image */
+    background: rgba(0, 0, 0, 0.8);
+    /* Darker background */
+    border: 2px solid var(--accent-purple);
+    /* Thicker border */
+    padding: 15px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(189, 0, 255, 0.2), inset 0 0 10px rgba(189, 0, 255, 0.1);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    /* Strong white glow */
+    letter-spacing: 2px;
+}
+
+.timing-subtext {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    color: var(--accent-blue);
+    margin-bottom: 25px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* Clock Customization to match left alignment */
+.minimal-clock {
+    align-self: center;
+    /* Center align */
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Rajdhani', sans-serif;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.minimal-clock:hover {
+    border-color: var(--accent-purple);
+    background: rgba(189, 0, 255, 0.1);
+    box-shadow: 0 0 15px rgba(189, 0, 255, 0.2);
+    color: var(--accent-purple);
+}
+
+.clock-icon {
+    font-size: 1.1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .section-title.large-glow {
+        font-size: 2rem;
+    }
+
+    .timing-card-minimal {
+        padding: 30px;
+        text-align: center;
+        /* Center on mobile for better flow */
+        align-items: center;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        /* Reset border */
+        border-top: 4px solid var(--accent-purple);
+    }
+
+    .minimal-clock {
+        align-self: center;
+    }
+
+    .neon-divider {
+        width: 150px;
+    }
+
+    .timing-main {
+        font-size: 2rem;
+    }
+}

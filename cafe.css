@@ -1,0 +1,464 @@
+/* =========================================
+ * BUNKER CAFÉ SECTION (PREMIUM UPGRADE)
+ * ========================================= */
+#cafe {
+    padding: 100px 0;
+    position: relative;
+    /* Background removed to remove box effect */
+    background: transparent;
+    /* Borders removed */
+    border: none;
+    overflow: hidden;
+}
+
+/* Floating Decorative Shapes */
+#cafe::before,
+#cafe::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    animation: floatShape 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#cafe::before {
+    width: 300px;
+    height: 300px;
+
+}
+
+#cafe::after {
+    width: 250px;
+    height: 250px;
+    background: rgba(157, 0, 255, 0.08);
+    /* Purple Accent for depth */
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+}
+
+@keyframes floatShape {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(50px, 30px) rotate(10deg);
+    }
+}
+
+/* Container Enhancement */
+.cafe-hero {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 2;
+
+    /* Subtle Container Styling */
+    background: rgba(20, 20, 25, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 60px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+    max-width: 900px;
+    margin: 0 auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cafe-hero:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Section Title Enhancement */
+.section-title {
+    position: relative;
+    display: block;
+    /* Robust centering */
+    width: 100%;
+    margin: 0 0 20px 0;
+    text-align: center;
+    /* Typography Improvement */
+    letter-spacing: 3px;
+    /* Subtle Gradient text */
+    background: linear-gradient(180deg, #fff, #bbb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Animated Underline */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--accent-blue);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--accent-blue);
+    animation: slideLine 1s forwards 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideLine {
+    to {
+        width: 80px;
+    }
+}
+
+.cafe-sub {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: var(--accent-blue);
+    margin-top: 25px;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    /* Increased slightly */
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    /* Reduced glow */
+    opacity: 0;
+    animation: fadeUp 0.8s forwards 0.2s;
+}
+
+.cafe-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.15rem;
+    color: #ccc;
+    max-width: 650px;
+    margin: 0 auto 40px;
+    line-height: 2;
+    /* Improved line height */
+    opacity: 0;
+    animation: fadeUp 0.8s forwards 0.4s;
+}
+
+/* Smooth Fade Up Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Premium Button Improvement */
+.btn-cafe {
+    font-family: 'Orbitron', sans-serif;
+    background: #0f1015;
+    /* Solid dark background */
+    color: var(--accent-blue);
+    border: 1px solid rgba(0, 242, 255, 0.4);
+    /* Soft accent border */
+    padding: 16px 45px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: none;
+    /* Removed heavy shadow */
+    opacity: 0;
+    animation: fadeUp 0.8s forwards 0.6s;
+}
+
+/* Button Micro-Click & Hover */
+.btn-cafe:active {
+    transform: scale(0.98);
+}
+
+.btn-cafe:hover {
+    transform: translateY(-2px);
+    /* Slight lift */
+    background: #14151a;
+    /* Subtle bg change */
+    border-color: var(--accent-blue);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    /* Soft shadow */
+    color: #fff;
+}
+
+/* =========================================
+ * MENU MODAL (ENHANCED)
+ * ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-modal {
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(20px);
+    width: 90%;
+    max-width: 1100px;
+    max-height: 85vh;
+    border-radius: 20px;
+    /* More rounded */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+}
+
+.modal-overlay.active .menu-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.modal-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+    margin: 0;
+}
+
+.modal-title span {
+    color: var(--accent-blue);
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    line-height: 1;
+}
+
+.close-modal-btn:hover {
+    color: #fff;
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    /* Custom Scrollbar for Modal content */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-blue) #222;
+}
+
+/* Modal Scrollbar Webkit */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #222;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background-color: var(--accent-blue);
+    border-radius: 4px;
+}
+
+/* Menu Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+/* Menu Divider */
+.menu-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    margin: 30px 0 15px;
+    color: var(--accent-blue);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    /* Larger */
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    opacity: 0;
+    animation: itemFadeIn 0.5s forwards 0.2s;
+    /* Slight delay */
+}
+
+.menu-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-blue) 0%, transparent 100%);
+    margin-left: 20px;
+    opacity: 0.6;
+}
+
+.menu-divider span {
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+}
+
+/* Menu Items (Staggered Animation handled via CSS is tricky for dynamic items, 
+   but we can add a general entry animation) */
+.menu-item {
+    background: #0f1015;
+    /* Dark solid base */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Soft border */
+    padding: 25px;
+    border-radius: 12px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    /* For stagger animation */
+    animation: itemFadeIn 0.5s forwards;
+}
+
+/* Apply simple stagger delays for the first few items to give the effect */
+.menu-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.menu-item:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.menu-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.menu-item:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.menu-item:nth-child(n+5) {
+    animation-delay: 0.3s;
+}
+
+@keyframes itemFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent-blue);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 242, 255, 0.1) inset;
+    background: #14141a;
+}
+
+.item-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.item-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    color: var(--accent-blue);
+    /* Blue Accent */
+    margin-bottom: 10px;
+    display: block;
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+}
+
+.item-desc {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #cafe {
+        padding: 60px 0;
+    }
+
+    .cafe-hero {
+        padding: 40px 20px;
+        width: 95%;
+    }
+
+    .btn-cafe {
+        width: 100%;
+        /* Full width on mobile */
+        padding: 15px;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .menu-divider {
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-modal {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+}
