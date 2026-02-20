@@ -6,143 +6,96 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
 
     // =========================================
-    // PRELOADER
+    // PRELOADER WITH ANIMATED PERCENT
     // =========================================
     const preloader = document.getElementById('preloader');
+    const percentEl = document.getElementById('preloader-percent');
+    let currentPercent = 0;
+
+    const percentInterval = setInterval(() => {
+        currentPercent += Math.floor(Math.random() * 8) + 2;
+        if (currentPercent >= 100) {
+            currentPercent = 100;
+            clearInterval(percentInterval);
+        }
+        if (percentEl) percentEl.textContent = currentPercent + '%';
+    }, 60);
+
     if (preloader) {
-        // Simulate loading time
         setTimeout(() => {
+            currentPercent = 100;
+            if (percentEl) percentEl.textContent = '100%';
+            preloader.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
             preloader.style.opacity = '0';
-            preloader.style.transition = 'opacity 0.5s ease';
+            preloader.style.transform = 'scale(1.05)';
             setTimeout(() => {
                 preloader.style.display = 'none';
-            }, 500);
-        }, 2500);
-    }
-
-    // =========================================
-    // CUSTOM CURSOR
-    // =========================================
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-
-    if (cursor && follower) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-
-            // Slight delay for follower
-            setTimeout(() => {
-                follower.style.left = e.clientX + 'px';
-                follower.style.top = e.clientY + 'px';
-            }, 50);
-        });
-
-        // Add active state to cursor on hoverable elements
-        const hoverables = document.querySelectorAll('a, button, .game-card, .pricing-card');
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                follower.classList.add('active');
-            });
-            el.addEventListener('mouseleave', () => {
-                follower.classList.remove('active');
-            });
-        });
-    }
-
-    // =========================================
-    // BACKGROUND MUSIC
-    // =========================================
-    const music = document.getElementById('bg-music');
-    const musicToggle = document.getElementById('music-toggle');
-
-    if (music && musicToggle) {
-        let isPlaying = false;
-
-        // Set volume lower
-        music.volume = 0.3;
-
-        musicToggle.addEventListener('click', () => {
-            if (isPlaying) {
-                music.pause();
-                musicToggle.innerHTML = '🔊 OFF';
-                musicToggle.style.borderColor = 'var(--accent-green)';
-                musicToggle.style.color = 'var(--accent-green)';
-                musicToggle.style.boxShadow = '0 0 10px rgba(0, 255, 136, 0.2)';
-            } else {
-                music.play().then(() => {
-                    musicToggle.innerHTML = '🔊 ON';
-                    musicToggle.style.borderColor = 'var(--accent-blue)';
-                    musicToggle.style.color = 'var(--accent-blue)';
-                    musicToggle.style.boxShadow = '0 0 20px var(--accent-blue)';
-                }).catch(e => console.log("Audio play failed (interaction required):", e));
-            }
-            isPlaying = !isPlaying;
-        });
-    }
-
-    // =========================================
-    // TOURNAMENT MODAL
-    // =========================================
-    const modal = document.getElementById('tournament-modal');
-    const closeModal = document.querySelector('.close-modal');
-
-    if (modal && closeModal) {
-        // Show modal after 5 seconds
-        setTimeout(() => {
-            modal.style.display = 'flex';
-        }, 5000);
-
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
+            }, 700);
+        }, 2600);
     }
 
     // =========================================
     // TYPEWRITER EFFECT
     // =========================================
-    const textToType = "Enter The Arena. Reload The Thrill.";
-    const typewriterElement = document.getElementById('typewriter');
-    let typeIndex = 0;
+    const phrases = [
+        "Enter The Arena. Reload The Thrill.",
+        "Pool Tables. PS5. Pure Gaming.",
+        "Where Legends Are Made.",
+        "Game Hard. Live Harder."
+    ];
 
-    if (typewriterElement) {
-        function typeWriter() {
-            if (typeIndex < textToType.length) {
-                typewriterElement.innerHTML += textToType.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(typeWriter, 50); // Typing speed
-            }
+    const typewriterElement = document.getElementById('typewriter');
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeDelay = 55;
+
+    function typeWriter() {
+        if (!typewriterElement) return;
+        const current = phrases[phraseIndex];
+
+        if (isDeleting) {
+            typewriterElement.textContent = current.substring(0, charIndex - 1);
+            charIndex--;
+            typeDelay = 30;
+        } else {
+            typewriterElement.textContent = current.substring(0, charIndex + 1);
+            charIndex++;
+            typeDelay = 55;
         }
 
-        // Start typing after preloader
-        setTimeout(typeWriter, 3000);
+        if (!isDeleting && charIndex === current.length) {
+            typeDelay = 2200;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            typeDelay = 400;
+        }
+
+        setTimeout(typeWriter, typeDelay);
     }
 
+    setTimeout(typeWriter, 3200);
+
     // =========================================
-    // MINIMAL DIGITAL CLOCK (New Section)
+    // MINIMAL DIGITAL CLOCK
     // =========================================
     function updateMinimalClock() {
         const clockElement = document.getElementById('minimal-clock-time');
-        if (clockElement) {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+        if (!clockElement) return;
 
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
+        const now = new Date();
+        let hours = now.getHours();
+        let min = now.getMinutes();
+        let sec = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
 
-            clockElement.innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
-        }
+        hours = hours % 12 || 12;
+        min = min < 10 ? '0' + min : min;
+        sec = sec < 10 ? '0' + sec : sec;
+
+        clockElement.textContent = `${hours}:${min}:${sec} ${ampm}`;
     }
 
     setInterval(updateMinimalClock, 1000);
@@ -154,84 +107,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('particle-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        const COLORS = ['rgba(0,242,255,', 'rgba(157,0,255,', 'rgba(0,255,136,'];
 
-        let particlesArray;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
 
         class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
+            constructor() { this.reset(true); }
+
+            reset(initial = false) {
+                this.x = Math.random() * canvas.width;
+                this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = -(Math.random() * 0.5 + 0.2);
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+                this.pulse = Math.random() * Math.PI * 2;
             }
 
             draw() {
+                this.pulse += 0.02;
+                const alpha = this.opacity + Math.sin(this.pulse) * 0.1;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color + Math.max(0, Math.min(1, alpha)) + ')';
                 ctx.fill();
             }
 
             update() {
-                if (this.x > canvas.width || this.x < 0) {
-                    this.directionX = -this.directionX;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+                    this.reset();
                 }
-                if (this.y > canvas.height || this.y < 0) {
-                    this.directionY = -this.directionY;
-                }
-
-                this.x += this.directionX;
-                this.y += this.directionY;
                 this.draw();
             }
         }
 
         function initParticles() {
             particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 15000;
-
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 1) - 0.5;
-                let directionY = (Math.random() * 1) - 0.5;
-                let color = '#00f2ff'; // Cyan default
-
-                // Randomly assign neon colors
-                const colors = ['#00f2ff', '#9d00ff', '#00ff88'];
-                color = colors[Math.floor(Math.random() * colors.length)];
-
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            const count = Math.floor((canvas.width * canvas.height) / 12000);
+            for (let i = 0; i < Math.min(count, 120); i++) {
+                particlesArray.push(new Particle());
             }
-        }
-
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connectParticles();
         }
 
         function connectParticles() {
-            let opacityValue = 1;
+            const maxDist = 140;
             for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
-                        ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                for (let b = a + 1; b < particlesArray.length; b++) {
+                    const dx = particlesArray[a].x - particlesArray[b].x;
+                    const dy = particlesArray[a].y - particlesArray[b].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = 'rgba(100, 100, 100,' + opacityValue + ')';
-                        ctx.lineWidth = 1;
+                    if (dist < maxDist) {
+                        const alpha = (1 - dist / maxDist) * 0.12;
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${alpha})`;
+                        ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
                         ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
@@ -241,62 +178,103 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        });
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => p.update());
+            connectParticles();
+        }
 
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
         initParticles();
         animateParticles();
     }
 
     // =========================================
-    // SCROLL ANIMATIONS (Intersection Observer)
+    // SCROLL ANIMATIONS
     // =========================================
-    const observerOptions = {
-        threshold: 0.1
-    };
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.08 });
 
-    const fadeElements = document.querySelectorAll('.fade-in');
-    fadeElements.forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     // =========================================
-    // NAVBAR SCROLL EFFECT
+    // NAVBAR SCROLL EFFECT & ACTIVE LINKS
     // =========================================
     const navbar = document.getElementById('navbar');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+    const navAnchors = document.querySelectorAll('.nav-links li a');
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+        // Scrolled state
+        if (window.scrollY > 60) {
+            navbar?.classList.add('scrolled');
+        } else {
+            navbar?.classList.remove('scrolled');
+        }
+
+        // Active link highlighting
+        let current = '';
+        sections.forEach(sec => {
+            if (window.scrollY >= sec.offsetTop - 120) {
+                current = sec.getAttribute('id');
             }
         });
-    }
+
+        navAnchors.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + current) {
+                a.classList.add('active');
+            }
+        });
+
+        // Scroll to top button
+        if (scrollTopBtn) {
+            scrollTopBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
+        }
+    });
 
     // =========================================
-    // SMOOTH SCROLL FOR NAV LINKS
+    // SMOOTH SCROLL
     // =========================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                target.scrollIntoView({ behavior: 'smooth' });
             }
+            // Close mobile menu on click
+            navLinksEl?.classList.remove('mobile-open');
+            hamburger?.classList.remove('active');
         });
     });
+
+    // =========================================
+    // HAMBURGER MENU
+    // =========================================
+    const hamburger = document.getElementById('hamburger');
+    const navLinksEl = document.getElementById('nav-links');
+
+    if (hamburger && navLinksEl) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinksEl.classList.toggle('mobile-open');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinksEl.classList.remove('mobile-open');
+            }
+        });
+    }
 
     // =========================================
     // BUNKER CAFE MODAL & MENU
@@ -306,46 +284,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeMenuBtn = document.getElementById('close-menu');
     const menuGrid = document.getElementById('menu-grid');
 
-    // Menu Categories & Items
     const menuCategories = [
         {
-            title: "Quick Bites & Snacks",
-            items: Array.from({ length: 8 }, (_, i) => ({
-                name: `Snack Item ${String(i + 1).padStart(2, '0')}`,
-                price: '₹ XX',
-                desc: 'Crispy, crunchy, and perfect for gaming.'
-            }))
+            title: "⚡ Quick Bites & Snacks",
+            emoji: "🍟",
+            items: [
+                { name: "Samosa (2 pcs)", price: "₹ XX", desc: "Crispy golden samosas with chutney." },
+                { name: "Veg Sandwich", price: "₹ XX", desc: "Fresh vegetables in toasted bread." },
+                { name: "Bread Butter", price: "₹ XX", desc: "Classic butter toast, always fresh." },
+                { name: "Poha", price: "₹ XX", desc: "Light and flavorful flattened rice snack." },
+                { name: "Maggi Noodles", price: "₹ XX", desc: "Quick 2-minute fuel for late nights." },
+                { name: "Chips & Namkeen", price: "₹ XX", desc: "Assorted crunchy snack packs." },
+                { name: "Boiled Eggs (2)", price: "₹ XX", desc: "High-protein quick energy." },
+                { name: "Biscuits Pack", price: "₹ XX", desc: "Assorted biscuit packs." },
+            ]
         },
         {
-            title: "Cold Fuel (Drinks)",
-            items: Array.from({ length: 6 }, (_, i) => ({
-                name: `Drink Item ${String(i + 1).padStart(2, '0')}`,
-                price: '₹ XX',
-                desc: 'Chilled energetic beverages to keep you going.'
-            }))
+            title: "🥤 Cold Fuel (Drinks)",
+            emoji: "🧃",
+            items: [
+                { name: "Cold Water Bottle", price: "₹ XX", desc: "Chilled 1L packaged water." },
+                { name: "Soft Drinks", price: "₹ XX", desc: "Pepsi, Coke, Sprite & more." },
+                { name: "Energy Drink", price: "₹ XX", desc: "Extra boost for long gaming sessions." },
+                { name: "Juice Pack", price: "₹ XX", desc: "Real fruit juice packs, chilled." },
+                { name: "Lassi", price: "₹ XX", desc: "Sweet or salted, freshly made." },
+                { name: "Tea / Coffee", price: "₹ XX", desc: "Hot chai or instant coffee." },
+            ]
         },
         {
-            title: "Heavy Artillery (Meals)",
-            items: Array.from({ length: 6 }, (_, i) => ({
-                name: `Meal Item ${String(i + 1).padStart(2, '0')}`,
-                price: '₹ XX',
-                desc: 'Filling meals for the long haul.'
-            }))
+            title: "🍛 Heavy Artillery (Meals)",
+            emoji: "🍽️",
+            items: [
+                { name: "Thali (Full)", price: "₹ XX", desc: "Rice, dal, sabzi, roti & salad." },
+                { name: "Dal Rice", price: "₹ XX", desc: "Simple, filling comfort food." },
+                { name: "Rajma Chawal", price: "₹ XX", desc: "Classic kidney beans with steamed rice." },
+                { name: "Chole Bhature", price: "₹ XX", desc: "Spiced chickpeas with puffed bread." },
+                { name: "Paneer Roti", price: "₹ XX", desc: "Soft rotis with paneer sabzi." },
+                { name: "Chicken Rice", price: "₹ XX", desc: "Spiced chicken with basmati rice." },
+            ]
         }
     ];
 
-    // Render Menu Items with Dividers
     if (menuGrid) {
         let menuHTML = '';
-        menuCategories.forEach((category, index) => {
-            // Add Divider (except potentially for the first one if preferred, but adding for all is robust)
+        menuCategories.forEach((category) => {
             menuHTML += `
                 <div class="menu-divider">
                     <span>${category.title}</span>
                 </div>
             `;
-
-            // Add Items for this category
             menuHTML += category.items.map(item => `
                 <div class="menu-item">
                     <span class="item-name">${item.name}</span>
@@ -357,113 +344,54 @@ document.addEventListener('DOMContentLoaded', () => {
         menuGrid.innerHTML = menuHTML;
     }
 
-    // Modal Logic
     if (menuBtn && menuModal && closeMenuBtn) {
         menuBtn.addEventListener('click', () => {
-            // Activate the overlay (which fades in)
-            menuModal.style.visibility = 'visible';
-            menuModal.style.opacity = '1';
-            // Start the card animation slightly after overlay
-            const modalBox = menuModal.querySelector('.menu-modal');
-            if (modalBox) {
-                modalBox.style.transform = 'translateY(0)';
-            }
-            menuModal.classList.add('active'); // Helper class if easier
+            menuModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
 
         const closeModal = () => {
-            menuModal.style.opacity = '0';
-            menuModal.style.visibility = 'hidden';
-            const modalBox = menuModal.querySelector('.menu-modal');
-            if (modalBox) {
-                modalBox.style.transform = 'translateY(50px)';
-            }
             menuModal.classList.remove('active');
+            document.body.style.overflow = '';
         };
 
         closeMenuBtn.addEventListener('click', closeModal);
-
-        // Click outside to close
         menuModal.addEventListener('click', (e) => {
-            if (e.target === menuModal) {
-                closeModal();
-            }
+            if (e.target === menuModal) closeModal();
         });
-
-        // Mobile Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && menuModal.classList.contains('active')) {
-                closeModal();
-            }
+            if (e.key === 'Escape' && menuModal.classList.contains('active')) closeModal();
         });
     }
 
     // =========================================
-    // SCROLL TO TOP functionality (existing)
+    // SCROLL TO TOP
     // =========================================
     const scrollTopBtn = document.getElementById('scrollTop');
-
     if (scrollTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollTopBtn.style.display = 'block';
-            } else {
-                scrollTopBtn.style.display = 'none';
-            }
-        });
-
         scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
     // =========================================
-    // HAMBURGER MENU (Basic Toggle)
+    // 3D TILT EFFECT FOR GAME CARDS
     // =========================================
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '70px';
-                navLinks.style.right = '20px';
-                navLinks.style.background = '#0a0a0a';
-                navLinks.style.padding = '20px';
-                navLinks.style.border = '1px solid #333';
-                navLinks.style.borderRadius = '10px';
-            }
-        });
-    }
-
-    // =========================================
-    // TILT EFFECT FOR CARDS (Basic JS impl)
-    // =========================================
-    const cards = document.querySelectorAll('.game-card');
-
-    cards.forEach(card => {
+    document.querySelectorAll('.game-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
+            const xPct = (x / rect.width - 0.5) * 2;
+            const yPct = (y / rect.height - 0.5) * 2;
+            const rotateY = xPct * 8;
+            const rotateX = -yPct * 8;
 
-            const xPct = x / rect.width;
-            const yPct = y / rect.height;
-
-            const rotateX = (0.5 - yPct) * 10; // Max 10 deg
-            const rotateY = (xPct - 0.5) * 10;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04) translateY(-8px)`;
         });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1) translateY(0)';
         });
     });
 
@@ -471,31 +399,90 @@ document.addEventListener('DOMContentLoaded', () => {
     // WHATSAPP SLOT BOOKING
     // =========================================
     const bookButtons = document.querySelectorAll('.book-btn');
-    const phoneNumber = "919113104602"; // REPLACE WITH YOUR ACTUAL WHATSAPP NUMBER
+    const phoneNumber = "919113104602";
 
     bookButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const gameName = btn.getAttribute('data-game');
+            if (!gameName) return;
 
-            // Get today's date
-            const today = new Date().toLocaleDateString('en-IN', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-            });
-
-            // Generate Booking ID (Timestamp)
+            const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
             const bookingId = "RB-" + Date.now().toString().slice(-6);
 
-            if (gameName) {
-                const message = `Hello Royal Bunkers Reloaded Team,\n\nI would like to book a slot for *${gameName}*.\n\n🎮 *Gamezone:* Royal Bunkers Reloaded\n🏢 *Operated by:* Royal Castle Hostel & PG (Sadguru Corporation)\n🆔 *Booking ID:* ${bookingId}\n\n📅 *Preferred Date:* ${today}\n⏰ *Preferred Time:* (Please discuss)\n\nPlease share availability and confirm my booking.\nThank you.`;
+            const message = `Hello Royal Bunkers Reloaded Team,\n\nI would like to book a slot for *${gameName}*.\n\n🎮 *Gamezone:* Royal Bunkers Reloaded\n🏢 *Operated by:* Royal Castle Hostel & PG (Sadguru Corporation)\n🆔 *Booking ID:* ${bookingId}\n\n📅 *Preferred Date:* ${today}\n⏰ *Preferred Time:* (Please discuss)\n\nPlease share availability and confirm my booking.\nThank you.`;
 
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-                window.open(whatsappUrl, '_blank');
-            }
+            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
         });
     });
+
+    // =========================================
+    // SECTION REVEAL STAGGER ANIMATION
+    // =========================================
+    const staggerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const children = entry.target.querySelectorAll('.game-card, .pricing-card, .feature-card, .gallery-item');
+                children.forEach((child, i) => {
+                    child.style.transitionDelay = (i * 0.08) + 's';
+                    child.style.opacity = '1';
+                    child.style.transform = 'translateY(0)';
+                });
+            }
+        });
+    }, { threshold: 0.05 });
+
+    // Apply stagger base styles and observe
+    document.querySelectorAll('.games-grid, .pricing-grid, .features-grid, .gallery-grid').forEach(grid => {
+        const children = grid.querySelectorAll('.game-card, .pricing-card, .feature-card, .gallery-item');
+        children.forEach(child => {
+            child.style.opacity = '0';
+            child.style.transform = 'translateY(30px)';
+            child.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+        });
+        staggerObserver.observe(grid);
+    });
+
+    // =========================================
+    // RIPPLE EFFECT ON BUTTONS
+    // =========================================
+    function createRipple(e, el) {
+        const rect = el.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px; height: ${size}px;
+            left: ${x}px; top: ${y}px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out;
+            pointer-events: none;
+        `;
+
+        if (!document.querySelector('#ripple-style')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-style';
+            style.textContent = `
+                @keyframes rippleAnim {
+                    to { transform: scale(2.5); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        el.style.position = 'relative';
+        el.style.overflow = 'hidden';
+        el.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+    }
+
+    document.querySelectorAll('.cta-button, .cta-button-outline, .select-plan, .btn-cafe, .social-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => createRipple(e, btn));
+    });
+
 });

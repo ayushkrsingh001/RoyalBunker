@@ -1,148 +1,145 @@
 /* =========================================
- * BUNKER CAFÉ SECTION (PREMIUM UPGRADE)
+ * BUNKER CAFÉ SECTION (PREMIUM)
  * ========================================= */
 #cafe {
-    padding: 100px 0;
+    padding: 110px 0;
     position: relative;
-    /* Background removed to remove box effect */
     background: transparent;
-    /* Borders removed */
-    border: none;
     overflow: hidden;
 }
 
-/* Floating Decorative Shapes */
-#cafe::before,
+/* Floating decorative blobs */
+#cafe::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.04) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: blobFloat 18s infinite alternate ease-in-out;
+    pointer-events: none;
+}
+
 #cafe::after {
     content: '';
     position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(157, 0, 255, 0.05) 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
     border-radius: 50%;
-    filter: blur(80px);
-    z-index: 0;
-    animation: floatShape 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+    filter: blur(60px);
+    animation: blobFloat 22s infinite alternate-reverse ease-in-out;
+    pointer-events: none;
 }
 
-#cafe::before {
-    width: 300px;
-    height: 300px;
-
-}
-
-#cafe::after {
-    width: 250px;
-    height: 250px;
-    background: rgba(157, 0, 255, 0.08);
-    /* Purple Accent for depth */
-    bottom: -10%;
-    right: -10%;
-    animation-delay: -5s;
-}
-
-@keyframes floatShape {
+@keyframes blobFloat {
     0% {
-        transform: translate(0, 0) rotate(0deg);
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, 20px) scale(1.1);
     }
 
     100% {
-        transform: translate(50px, 30px) rotate(10deg);
+        transform: translate(-20px, 40px) scale(0.9);
     }
 }
 
-/* Container Enhancement */
+/* Café hero card */
 .cafe-hero {
     text-align: center;
-    margin-bottom: 50px;
+    margin: 0 auto;
     position: relative;
     z-index: 2;
+    background: rgba(8, 8, 20, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 24px;
+    padding: 70px 60px;
+    max-width: 860px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+    overflow: hidden;
+}
 
-    /* Subtle Container Styling */
-    background: rgba(20, 20, 25, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 60px 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+.cafe-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-purple), transparent);
+    background-size: 200% 100%;
+    animation: cafeLineShimmer 4s linear infinite;
+}
 
-    max-width: 900px;
-    margin: 0 auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+@keyframes cafeLineShimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+.cafe-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0, 242, 255, 0.04) 0%, transparent 65%);
+    pointer-events: none;
 }
 
 .cafe-hero:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* Section Title Enhancement */
-.section-title {
-    position: relative;
-    display: block;
-    /* Robust centering */
-    width: 100%;
-    margin: 0 0 20px 0;
-    text-align: center;
-    /* Typography Improvement */
-    letter-spacing: 3px;
-    /* Subtle Gradient text */
-    background: linear-gradient(180deg, #fff, #bbb);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Animated Underline */
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    width: 0;
-    height: 3px;
-    background: var(--accent-blue);
-    transform: translateX(-50%);
-    box-shadow: 0 0 10px var(--accent-blue);
-    animation: slideLine 1s forwards 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@keyframes slideLine {
-    to {
-        width: 80px;
-    }
+    transform: translateY(-6px);
+    box-shadow:
+        0 45px 100px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(0, 242, 255, 0.05);
 }
 
 .cafe-sub {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--accent-blue);
-    margin-top: 25px;
     margin-bottom: 20px;
-    letter-spacing: 4px;
-    /* Increased slightly */
+    letter-spacing: 5px;
     text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
-    /* Reduced glow */
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+    position: relative;
+    z-index: 2;
     opacity: 0;
-    animation: fadeUp 0.8s forwards 0.2s;
+    animation: fadeUpIn 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards;
 }
 
 .cafe-desc {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 1.15rem;
-    color: #ccc;
-    max-width: 650px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 600px;
     margin: 0 auto 40px;
     line-height: 2;
-    /* Improved line height */
+    position: relative;
+    z-index: 2;
     opacity: 0;
-    animation: fadeUp 0.8s forwards 0.4s;
+    animation: fadeUpIn 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.35s forwards;
 }
 
-/* Smooth Fade Up Animation */
-@keyframes fadeUp {
+@keyframes fadeUpIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(25px);
     }
 
     to {
@@ -151,56 +148,62 @@
     }
 }
 
-/* Premium Button Improvement */
 .btn-cafe {
     font-family: 'Orbitron', sans-serif;
-    background: #0f1015;
-    /* Solid dark background */
+    background: transparent;
     color: var(--accent-blue);
-    border: 1px solid rgba(0, 242, 255, 0.4);
-    /* Soft accent border */
-    padding: 16px 45px;
-    font-size: 1.1rem;
+    border: 1px solid rgba(0, 242, 255, 0.35);
+    padding: 15px 45px;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     position: relative;
     overflow: hidden;
-    border-radius: 6px;
-    box-shadow: none;
-    /* Removed heavy shadow */
+    border-radius: 8px;
+    z-index: 2;
     opacity: 0;
-    animation: fadeUp 0.8s forwards 0.6s;
+    animation: fadeUpIn 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.5s forwards;
 }
 
-/* Button Micro-Click & Hover */
-.btn-cafe:active {
-    transform: scale(0.98);
+.btn-cafe::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.08), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-cafe:hover::before {
+    left: 100%;
 }
 
 .btn-cafe:hover {
-    transform: translateY(-2px);
-    /* Slight lift */
-    background: #14151a;
-    /* Subtle bg change */
+    background: rgba(0, 242, 255, 0.08);
     border-color: var(--accent-blue);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    /* Soft shadow */
     color: #fff;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.15), inset 0 0 20px rgba(0, 242, 255, 0.05);
+    transform: translateY(-3px);
+    letter-spacing: 4px;
+}
+
+.btn-cafe:active {
+    transform: scale(0.97);
 }
 
 /* =========================================
- * MENU MODAL (ENHANCED)
+ * MENU MODAL (PREMIUM)
  * ========================================= */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 10000;
     display: flex;
     justify-content: center;
@@ -208,6 +211,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s ease;
+    padding: 20px;
 }
 
 .modal-overlay.active {
@@ -216,21 +220,34 @@
 }
 
 .menu-modal {
-    background: rgba(10, 10, 12, 0.95);
-    backdrop-filter: blur(20px);
-    width: 90%;
-    max-width: 1100px;
-    max-height: 85vh;
-    border-radius: 20px;
-    /* More rounded */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(7, 7, 17, 0.97);
+    backdrop-filter: blur(30px);
+    width: 100%;
+    max-width: 1050px;
+    max-height: 88vh;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
-    transform: scale(0.9) translateY(30px);
+    transform: scale(0.88) translateY(40px);
     opacity: 0;
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+    box-shadow:
+        0 60px 120px rgba(0, 0, 0, 0.9),
+        0 0 80px rgba(0, 242, 255, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.menu-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-purple), transparent);
 }
 
 .modal-overlay.active .menu-modal {
@@ -239,67 +256,80 @@
 }
 
 .modal-header {
-    padding: 25px 30px;
+    padding: 28px 35px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .modal-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #fff;
     margin: 0;
+    letter-spacing: 4px;
+    background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .modal-title span {
     color: var(--accent-blue);
-    text-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+    -webkit-text-fill-color: var(--accent-blue);
 }
 
 .close-modal-btn {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.4rem;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
     line-height: 1;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close-modal-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
     color: #fff;
+    transform: rotate(90deg);
 }
 
 .modal-body {
-    padding: 30px;
+    padding: 35px;
     overflow-y: auto;
-    /* Custom Scrollbar for Modal content */
     scrollbar-width: thin;
-    scrollbar-color: var(--accent-blue) #222;
+    scrollbar-color: rgba(0, 242, 255, 0.3) transparent;
 }
 
-/* Modal Scrollbar Webkit */
 .modal-body::-webkit-scrollbar {
-    width: 8px;
+    width: 5px;
 }
 
 .modal-body::-webkit-scrollbar-track {
-    background: #222;
+    background: transparent;
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-    background-color: var(--accent-blue);
-    border-radius: 4px;
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 3px;
 }
 
 /* Menu Grid */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding-bottom: 20px;
+    gap: 16px;
 }
 
 /* Menu Divider */
@@ -307,117 +337,126 @@
     grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    margin: 30px 0 15px;
+    margin: 25px 0 5px;
     color: var(--accent-blue);
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.3rem;
-    /* Larger */
+    font-size: 1rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    position: relative;
-    opacity: 0;
-    animation: itemFadeIn 0.5s forwards 0.2s;
-    /* Slight delay */
+    animation: itemFadeIn 0.5s forwards;
 }
 
 .menu-divider::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, var(--accent-blue) 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(0, 242, 255, 0.3) 0%, transparent 100%);
     margin-left: 20px;
-    opacity: 0.6;
 }
 
 .menu-divider span {
-    text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    white-space: nowrap;
 }
 
-/* Menu Items (Staggered Animation handled via CSS is tricky for dynamic items, 
-   but we can add a general entry animation) */
+/* Menu Items */
 .menu-item {
-    background: #0f1015;
-    /* Dark solid base */
+    background: rgba(12, 12, 22, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    /* Soft border */
-    padding: 25px;
-    border-radius: 12px;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 22px 18px;
+    border-radius: 14px;
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s ease, box-shadow 0.35s ease;
     position: relative;
     overflow: hidden;
     opacity: 0;
-    /* For stagger animation */
     animation: itemFadeIn 0.5s forwards;
 }
 
-/* Apply simple stagger delays for the first few items to give the effect */
+.menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-item:hover::before {
+    opacity: 1;
+}
+
 .menu-item:nth-child(1) {
-    animation-delay: 0.1s;
+    animation-delay: 0.05s;
 }
 
 .menu-item:nth-child(2) {
-    animation-delay: 0.15s;
+    animation-delay: 0.10s;
 }
 
 .menu-item:nth-child(3) {
-    animation-delay: 0.2s;
+    animation-delay: 0.15s;
 }
 
 .menu-item:nth-child(4) {
-    animation-delay: 0.25s;
+    animation-delay: 0.20s;
 }
 
 .menu-item:nth-child(n+5) {
-    animation-delay: 0.3s;
+    animation-delay: 0.25s;
 }
 
 @keyframes itemFadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px) scale(0.97);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 .menu-item:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--accent-blue);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 242, 255, 0.1) inset;
-    background: #14141a;
+    transform: translateY(-6px);
+    border-color: rgba(0, 242, 255, 0.18);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 242, 255, 0.06) inset;
+    background: rgba(14, 14, 26, 0.9);
 }
 
 .item-name {
     font-family: 'Rajdhani', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 5px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 6px;
     letter-spacing: 1px;
     display: block;
 }
 
 .item-price {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.95rem;
+    font-family: 'Orbitron', 'Share Tech Mono', sans-serif;
+    font-size: 0.85rem;
     color: var(--accent-blue);
-    /* Blue Accent */
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: block;
-    text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.25);
 }
 
 .item-desc {
-    font-size: 0.85rem;
-    color: #888;
-    line-height: 1.4;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.5;
     margin: 0;
+    font-family: 'Rajdhani', sans-serif;
 }
 
-/* Responsive */
+/* =========================================
+ * RESPONSIVE
+ * ========================================= */
 @media (max-width: 1024px) {
     .menu-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -426,18 +465,23 @@
 
 @media (max-width: 768px) {
     #cafe {
-        padding: 60px 0;
+        padding: 70px 0;
     }
 
     .cafe-hero {
-        padding: 40px 20px;
+        padding: 45px 25px;
         width: 95%;
+        border-radius: 18px;
+    }
+
+    .cafe-sub {
+        font-size: 1rem;
+        letter-spacing: 3px;
     }
 
     .btn-cafe {
         width: 100%;
-        /* Full width on mobile */
-        padding: 15px;
+        padding: 14px;
     }
 
     .menu-grid {
@@ -445,8 +489,19 @@
     }
 
     .menu-divider {
-        font-size: 1rem;
-        margin-top: 20px;
+        font-size: 0.8rem;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-header {
+        padding: 20px 25px;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
     }
 }
 
@@ -458,7 +513,7 @@
     .menu-modal {
         width: 100%;
         height: 100%;
-        max-height: 100vh;
+        max-height: 100dvh;
         border-radius: 0;
     }
 }
