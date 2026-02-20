@@ -83,8 +83,9 @@
     max-width: 720px;
     width: 90%;
     margin: 0 auto;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(10px);
+    /* reduced for performance */
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,7 +108,7 @@
     height: 2px;
     background: linear-gradient(90deg, var(--neon-purple, #b400ff), var(--neon-cyan, #00e5ff), var(--neon-gold, #ffcc00), var(--neon-cyan, #00e5ff), var(--neon-purple, #b400ff));
     background-size: 300% 100%;
-    animation: borderFlow 4s linear infinite;
+    /* animation: borderFlow 4s linear infinite; Disabled for performance */
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
 }
 

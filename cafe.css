@@ -17,9 +17,10 @@
     top: -100px;
     right: -100px;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(60px);
+    /* reduced for performance */
     pointer-events: none;
-    animation: bloat 20s ease-in-out infinite alternate;
+    /* animation: bloat 20s ease-in-out infinite alternate; Disabled for performance */
 }
 
 #cafe::after {
@@ -31,9 +32,10 @@
     bottom: -80px;
     left: -80px;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(60px);
+    /* reduced for performance */
     pointer-events: none;
-    animation: bloat 26s ease-in-out infinite alternate-reverse;
+    /* animation: bloat 26s ease-in-out infinite alternate-reverse; Disabled for performance */
 }
 
 @keyframes bloat {
@@ -52,8 +54,9 @@
     margin: 60px auto 0;
     text-align: center;
     background: rgba(7, 7, 22, 0.75);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(10px);
+    /* reduced for performance */
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 24px;
     padding: 70px 65px;
@@ -81,7 +84,7 @@
             var(--neon-cyan, #00e5ff),
             transparent);
     background-size: 300% 100%;
-    animation: cafeTopLine 5s linear infinite;
+    /* animation: cafeTopLine 5s linear infinite; Disabled for performance */
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
 }
 

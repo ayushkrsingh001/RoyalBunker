@@ -135,10 +135,11 @@ body::before {
 .ambient-orb {
     position: fixed;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(80px);
+    /* Reduced from 120px for performance */
     pointer-events: none;
     z-index: 0;
-    animation: orbDrift 20s infinite alternate ease-in-out;
+    /* animation: orbDrift 20s infinite alternate ease-in-out; disabled for performance */
 }
 
 .ambient-orb-1 {
@@ -339,8 +340,9 @@ body::before {
     transition: background 0.4s ease, box-shadow 0.4s ease;
     /* Always-on glass */
     background: rgba(2, 2, 12, 0.55);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(10px);
+    /* reduced for performance */
+    -webkit-backdrop-filter: blur(10px);
     /* Inner top highlight */
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.06),
@@ -363,7 +365,7 @@ body::before {
             rgba(255, 204, 0, 0.4) 80%,
             transparent 100%);
     background-size: 200% 100%;
-    animation: navBorderFlow 4s linear infinite;
+    /* animation: navBorderFlow 4s linear infinite; Disabled for performance */
     filter: blur(0.4px);
 }
 
@@ -383,7 +385,7 @@ body::before {
     filter: blur(6px);
     pointer-events: none;
     background-size: 200% 100%;
-    animation: navBorderFlow 4s linear infinite reverse;
+    /* animation: navBorderFlow 4s linear infinite reverse; Disabled for performance */
 }
 
 @keyframes navBorderFlow {
@@ -398,8 +400,9 @@ body::before {
 
 #navbar.scrolled {
     background: rgba(2, 2, 12, 0.82);
-    backdrop-filter: blur(32px) saturate(200%);
-    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    backdrop-filter: blur(16px);
+    /* reduced for performance */
+    -webkit-backdrop-filter: blur(16px);
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.09),
         inset 0 -1px 0 rgba(0, 229, 255, 0.06),
@@ -557,7 +560,7 @@ body::before {
             rgba(0, 229, 255, 0.06) 40%,
             transparent 70%);
     pointer-events: none;
-    animation: heroBgPulse 6s ease-in-out infinite;
+    /* animation: heroBgPulse 6s ease-in-out infinite; Disabled for performance */
 }
 
 @keyframes heroBgPulse {
@@ -583,7 +586,7 @@ body::before {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.3), rgba(180, 0, 255, 0.3), transparent);
     top: 50%;
-    animation: scanLine 8s linear infinite;
+    /* animation: scanLine 8s linear infinite; Disabled for performance */
     pointer-events: none;
 }
 
@@ -2085,10 +2088,26 @@ footer {
 
 /* â”€â”€ 768px : MOBILE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 768px) {
+
     /* Ambient orbs: clamp to viewport width so they don't cause right-side overflow gap */
-    .ambient-orb-1 { width: min(400px, 100vw); height: min(400px, 100vw); top: -120px; left: -120px; }
-    .ambient-orb-2 { width: min(360px, 90vw);  height: min(360px, 90vw);  bottom: -100px; right: -100px; }
-    .ambient-orb-3 { width: min(260px, 80vw);  height: min(260px, 80vw);  }
+    .ambient-orb-1 {
+        width: min(400px, 100vw);
+        height: min(400px, 100vw);
+        top: -120px;
+        left: -120px;
+    }
+
+    .ambient-orb-2 {
+        width: min(360px, 90vw);
+        height: min(360px, 90vw);
+        bottom: -100px;
+        right: -100px;
+    }
+
+    .ambient-orb-3 {
+        width: min(260px, 80vw);
+        height: min(260px, 80vw);
+    }
 
 
     /* â”€â”€ Navbar â”€â”€ */

@@ -133,11 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initParticles() {
             particles = [];
-            const n = Math.min(Math.floor((canvas.width * canvas.height) / 11000), 130);
+            const n = Math.min(Math.floor((canvas.width * canvas.height) / 20000), 40);
             for (let i = 0; i < n; i++) particles.push(new Particle());
         }
 
         function connectParticles() {
+            // Disabled connecting lines to improve performance
+            return;
             const maxD = 130;
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a + 1; b < particles.length; b++) {
@@ -330,11 +332,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     document.querySelectorAll('.pricing-card, .feature-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.background = `radial-gradient(circle at ${x}px ${y}px,
-                rgba(0,229,255,0.07) 0%, rgba(10,10,28,0.85) 55%)`;
+            // Throttled / disabled spotlight gradient to save performance
+            // const rect = card.getBoundingClientRect();
+            // const x = e.clientX - rect.left;
+            // const y = e.clientY - rect.top;
+            // card.style.background = `radial-gradient(circle at ${x}px ${y}px,
+            //     rgba(0,229,255,0.07) 0%, rgba(10,10,28,0.85) 55%)`;
         });
         card.addEventListener('mouseleave', () => {
             card.style.background = '';
@@ -346,13 +349,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     function applyTilt(el, maxDeg = 8) {
         el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-            const yPct = (e.clientY - rect.top) / rect.height - 0.5;
-            el.style.transform = `perspective(900px)
-                rotateX(${-yPct * maxDeg}deg)
-                rotateY(${xPct * maxDeg}deg)
-                scale(1.035) translateY(-6px)`;
+            // Disabled 3D tilt for performance
+            // const rect = el.getBoundingClientRect();
+            // const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+            // const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+            // el.style.transform = `perspective(900px)
+            //     rotateX(${-yPct * maxDeg}deg)
+            //     rotateY(${xPct * maxDeg}deg)
+            //     scale(1.035) translateY(-6px)`;
         });
         el.addEventListener('mouseleave', () => {
             el.style.transform = '';
