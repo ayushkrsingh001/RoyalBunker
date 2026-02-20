@@ -38,7 +38,7 @@
 
     /* Transitions */
     --ease: cubic-bezier(0.23, 1, 0.32, 1);
-    --trans: all 0.4s var(--ease);
+    --trans: all 0.25s var(--ease);
 
     /* Soft-blur neon glows â€” 3 layers: crisp core + spread + bloom */
     --glow-cyan:
@@ -635,7 +635,7 @@ body::before {
     border-radius: 30px;
     background: rgba(0, 255, 153, 0.05);
     box-shadow: 0 0 20px rgba(0, 255, 153, 0.08), inset 0 0 20px rgba(0, 255, 153, 0.04);
-    animation: tagPulse 3s ease-in-out infinite;
+    animation: tagPulse 5s ease-in-out infinite;
 }
 
 .hero-tag::before {
@@ -645,7 +645,7 @@ body::before {
     background: var(--neon-green);
     border-radius: 50%;
     box-shadow: 0 0 8px var(--neon-green);
-    animation: blink 1.5s ease-in-out infinite;
+    animation: blink 2.5s ease-in-out infinite;
 }
 
 @keyframes tagPulse {
@@ -707,7 +707,7 @@ body::before {
     left: 0;
     width: 100%;
     color: var(--neon-cyan);
-    animation: glitch-left 5s infinite 1s;
+    animation: glitch-left 10s infinite 1s;
     clip-path: inset(0% 0 90% 0);
     text-shadow: none;
 }
@@ -719,7 +719,7 @@ body::before {
     left: 0;
     width: 100%;
     color: var(--neon-purple);
-    animation: glitch-right 5s infinite 1.5s;
+    animation: glitch-right 10s infinite 1.5s;
     clip-path: inset(85% 0 0% 0);
     text-shadow: none;
 }
@@ -801,7 +801,7 @@ body::before {
         0 0 6px rgba(0, 229, 255, 0.9),
         0 0 18px rgba(0, 229, 255, 0.5),
         0 0 40px rgba(0, 229, 255, 0.2);
-    animation: iconSpin 8s linear infinite;
+    animation: iconSpin 16s linear infinite;
 }
 
 @keyframes iconSpin {
@@ -1141,8 +1141,8 @@ section {
 /* Fade-in animation */
 .fade-in {
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    transform: translateY(22px);
+    transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
 }
 
 .fade-in.visible {
@@ -1449,7 +1449,7 @@ section {
             rgba(255, 255, 255, 0.008) 60%,
             transparent 100%);
     background-size: 200% 200%;
-    animation: holoShimmer 8s linear infinite;
+    /* animation: holoShimmer 8s linear infinite; — disabled for performance */
     pointer-events: none;
     border-radius: 20px;
 }
@@ -2721,5 +2721,161 @@ footer {
         width: 34px;
         height: 34px;
         font-size: 0.82rem;
+    }
+}
+
+/* =========================================
+ * MOBILE PERFORMANCE MODE (≤768px)
+ * Strips heavy GPU/animation work on phones
+ * ========================================= */
+@media (max-width: 768px) {
+
+    /* ── Kill noise texture SVG filter ── */
+    body::before {
+        display: none;
+    }
+
+    /* ── Hide particle canvas entirely ── */
+    #particle-canvas {
+        display: none;
+    }
+
+    /* ── Ambient orbs: much smaller + no blur filter cost ── */
+    .ambient-orb {
+        filter: blur(40px);
+    }
+
+    .ambient-orb-1 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(180, 0, 255, 0.08) 0%, transparent 70%);
+    }
+
+    .ambient-orb-2 {
+        width: 160px;
+        height: 160px;
+        background: radial-gradient(circle, rgba(0, 229, 255, 0.07) 0%, transparent 70%);
+    }
+
+    /* ── Remove third orb entirely ── */
+    .ambient-orb-3 {
+        display: none;
+    }
+
+    /* ── Remove ALL backdrop-filter (expensive on mobile GPU) ── */
+    #navbar,
+    #navbar.scrolled,
+    .nav-links.mobile-open,
+    .timing-card-minimal,
+    .timing-main,
+    .hero-stats,
+    .feature-card,
+    .game-card,
+    .pricing-card,
+    #preloader {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* ── Stop all looping CSS animations ── */
+    .glitch-large::before,
+    .glitch-large::after {
+        animation: none;
+    }
+
+    .hero-tag {
+        animation: none;
+        box-shadow: 0 0 12px rgba(0, 255, 153, 0.08);
+    }
+
+    .hero-tag::before {
+        animation: none;
+        opacity: 1;
+    }
+
+    .cursor-blink {
+        animation: none;
+        opacity: 1;
+    }
+
+    .preloader-logo {
+        animation: none;
+    }
+
+    .loading-bar {
+        animation: loadingGrow 1.6s ease-out forwards;
+        /* keep the grow, skip shimmer */
+    }
+
+    .icon {
+        animation: none;
+    }
+
+    .wheel {
+        animation: none;
+        opacity: 0.5;
+        transform: translateY(3px);
+    }
+
+    .neon-divider {
+        animation: none;
+        width: 200px;
+        opacity: 1;
+    }
+
+    /* ── Fade-ins: instant on mobile, no jank ── */
+    .fade-in {
+        opacity: 0;
+        transform: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* ── Remove glow text-shadows (reduce paint cost) ── */
+    .stat-number {
+        text-shadow: none;
+    }
+
+    .glitch-large {
+        text-shadow: none;
+    }
+
+    .section-title .accent {
+        text-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+    }
+
+    /* ── Remove box-shadow glow layers (keep only depth shadow) ── */
+    .feature-card:hover,
+    .game-card:hover,
+    .pricing-card:hover {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        transform: none;
+        /* no lift on touch */
+    }
+
+    .timing-card-minimal:hover {
+        transform: none;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ── Disable hover underline expand on nav (touch devices) ── */
+    .nav-links li a::after {
+        display: none;
+    }
+
+    /* ── Simplify button hover ── */
+    .cta-button:hover,
+    .cta-button-outline:hover {
+        transform: none;
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+    }
+
+    /* ── Remove top-bar glow on timing card ── */
+    .timing-card-minimal::before {
+        box-shadow: none;
     }
 }

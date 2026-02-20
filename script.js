@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (history.scrollRestoration) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
 
+    // ── Mobile flag (skip heavy effects on phones) ──
+    const isMobile = window.innerWidth <= 768;
+
     // =========================================
     // PRELOADER WITH ANIMATED PERCENT
     // =========================================
@@ -25,15 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Flash overlay on exit
             const flash = document.createElement('div');
             flash.style.cssText = `position:fixed;inset:0;background:#00e5ff;z-index:99998;
-                opacity:0.15;pointer-events:none;animation:flashOut 0.5s ease forwards;`;
+                opacity:0.1;pointer-events:none;animation:flashOut 0.4s ease forwards;`;
             document.body.appendChild(flash);
-            setTimeout(() => flash.remove(), 500);
+            setTimeout(() => flash.remove(), 400);
 
-            preloader.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
+            preloader.style.transition = 'opacity 0.45s ease';
             preloader.style.opacity = '0';
-            preloader.style.transform = 'scale(1.04)';
-            setTimeout(() => { preloader.style.display = 'none'; }, 700);
-        }, 2600);
+            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+        }, 1800);
     }
 
     // =========================================
@@ -95,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // BACKGROUND PARTICLES (CANVAS)
     // =========================================
     const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
+    if (canvas && !isMobile) {
         const ctx = canvas.getContext('2d');
         let particles = [];
         const COLS = ['rgba(0,229,255,', 'rgba(180,0,255,', 'rgba(0,255,153,'];
@@ -246,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     kid.style.opacity = '1';
                     kid.style.transform = 'translateY(0) scale(1)';
-                }, i * 75);
+                }, isMobile ? 0 : i * 40);
             });
             staggerObserver.unobserve(entry.target);
         });
@@ -254,11 +256,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.games-grid, .pricing-grid, .features-grid, .gallery-grid').forEach(grid => {
         grid.querySelectorAll('.game-card, .pricing-card, .feature-card, .gallery-item').forEach(kid => {
-            kid.style.cssText += `opacity:0;transform:translateY(32px) scale(0.97);
-                transition:opacity 0.65s cubic-bezier(0.23,1,0.32,1),
-                           transform 0.65s cubic-bezier(0.23,1,0.32,1);`;
+            if (isMobile) {
+                // On mobile: just show instantly, no stagger transform
+                kid.style.opacity = '1';
+                kid.style.transform = 'none';
+            } else {
+                kid.style.cssText += `opacity:0;transform:translateY(20px) scale(0.98);
+                    transition:opacity 0.45s cubic-bezier(0.23,1,0.32,1),
+                               transform 0.45s cubic-bezier(0.23,1,0.32,1);`;
+            }
         });
-        staggerObserver.observe(grid);
+        if (!isMobile) staggerObserver.observe(grid);
     });
 
     // =========================================
@@ -298,17 +306,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // MAGNETIC NAV LINKS
     // =========================================
-    document.querySelectorAll('.nav-links li a').forEach(link => {
-        link.addEventListener('mousemove', (e) => {
-            const rect = link.getBoundingClientRect();
-            const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-            const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
-            link.style.transform = `translate(${x}px, ${y}px)`;
+    if (!isMobile) {
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('mousemove', (e) => {
+                const rect = link.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+                link.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = '';
+            });
         });
-        link.addEventListener('mouseleave', () => {
-            link.style.transform = '';
-        });
-    });
+    }
 
     // =========================================
     // PARALLAX HERO ON SCROLL
@@ -316,55 +326,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroContent = document.querySelector('.hero-content');
     const heroSection = document.getElementById('hero');
 
-    window.addEventListener('scroll', () => {
-        if (!heroSection || !heroContent) return;
-        const scrolled = window.scrollY;
-        const heroH = heroSection.offsetHeight;
-        if (scrolled < heroH) {
-            const pct = scrolled / heroH;
-            heroContent.style.transform = `translateY(${pct * 60}px)`;
-            heroContent.style.opacity = `${1 - pct * 1.5}`;
-        }
-    }, { passive: true });
+    if (!isMobile) {
+        window.addEventListener('scroll', () => {
+            if (!heroSection || !heroContent) return;
+            const scrolled = window.scrollY;
+            const heroH = heroSection.offsetHeight;
+            if (scrolled < heroH) {
+                const pct = scrolled / heroH;
+                heroContent.style.transform = `translateY(${pct * 30}px)`;
+                heroContent.style.opacity = `${1 - pct * 1.2}`;
+            }
+        }, { passive: true });
+    }
 
     // =========================================
     // MOUSE-TRACKING SPOTLIGHT ON CARDS
     // =========================================
-    document.querySelectorAll('.pricing-card, .feature-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            // Throttled / disabled spotlight gradient to save performance
-            // const rect = card.getBoundingClientRect();
-            // const x = e.clientX - rect.left;
-            // const y = e.clientY - rect.top;
-            // card.style.background = `radial-gradient(circle at ${x}px ${y}px,
-            //     rgba(0,229,255,0.07) 0%, rgba(10,10,28,0.85) 55%)`;
+    if (!isMobile) {
+        document.querySelectorAll('.pricing-card, .feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // Throttled / disabled spotlight gradient to save performance
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = '';
+            });
         });
-        card.addEventListener('mouseleave', () => {
-            card.style.background = '';
-        });
-    });
+    }
 
     // =========================================
     // 3D TILT — GAME CARDS & GALLERY ITEMS
     // =========================================
-    function applyTilt(el, maxDeg = 8) {
-        el.addEventListener('mousemove', (e) => {
-            // Disabled 3D tilt for performance
-            // const rect = el.getBoundingClientRect();
-            // const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-            // const yPct = (e.clientY - rect.top) / rect.height - 0.5;
-            // el.style.transform = `perspective(900px)
-            //     rotateX(${-yPct * maxDeg}deg)
-            //     rotateY(${xPct * maxDeg}deg)
-            //     scale(1.035) translateY(-6px)`;
-        });
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = '';
-        });
+    if (!isMobile) {
+        function applyTilt(el, maxDeg = 8) {
+            el.addEventListener('mousemove', (e) => {
+                // Disabled 3D tilt for performance
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        }
+        document.querySelectorAll('.game-card').forEach(c => applyTilt(c, 9));
+        document.querySelectorAll('.gallery-item').forEach(c => applyTilt(c, 5));
     }
-
-    document.querySelectorAll('.game-card').forEach(c => applyTilt(c, 9));
-    document.querySelectorAll('.gallery-item').forEach(c => applyTilt(c, 5));
 
     // =========================================
     // RIPPLE EFFECT ON BUTTONS
@@ -405,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // SPARK BURST on CTA / booking click
     // =========================================
     function spawnSparks(e) {
+        if (isMobile) return; // skip on mobile
         for (let i = 0; i < 10; i++) {
             const spark = document.createElement('div');
             const angle = Math.random() * Math.PI * 2;
@@ -559,17 +563,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================
-    // FEATURE CARD — jolt on hover
+    // FEATURE CARD — subtle hover (jolt removed for performance)
     // =========================================
-    document.querySelectorAll('.feature-card').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.animate([
-                { transform: 'translateY(-10px) scale(1.01)' },
-                { transform: 'translateY(-13px) scale(1.02)' },
-                { transform: 'translateY(-10px) scale(1.01)' }
-            ], { duration: 280, easing: 'ease-in-out' });
-        });
-    });
+    // Feature card jolt disabled for smoother experience
 
     // =========================================
     // NAV ACTIVE ON CLICK
