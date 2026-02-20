@@ -1,52 +1,65 @@
 /* =========================================
- * ENHANCED TIMING SECTION
+ * TIMING SECTION — v3.0
  * ========================================= */
 #timing {
-    padding: 110px 0;
+    padding: 120px 0;
     position: relative;
     z-index: 2;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(0, 229, 255, 0.02) 50%,
+            transparent 100%);
 }
 
 .timing-content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
     text-align: center;
 }
 
 .section-title.large-glow {
-    width: 100%;
-    text-align: center;
-    display: block;
     font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 15px;
-    background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.55) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(0, 229, 255, 0.15);
+    margin-bottom: 18px;
 }
 
-.section-title .accent {
-    color: var(--accent-blue);
-    text-shadow: 0 0 25px var(--accent-blue);
-    -webkit-text-fill-color: var(--accent-blue);
+.section-title.large-glow .accent {
+    color: var(--neon-cyan, #00e5ff);
+    text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
 }
 
-/* The Neon Divider Line */
+.section-title.large-glow::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-cyan, #00e5ff), var(--neon-purple, #b400ff));
+    margin: 20px auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+/* Neon divider line */
 .neon-divider {
     width: 0;
-    max-width: 450px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #9d00ff, #00f2ff, #9d00ff, transparent);
-    margin: 0 auto 60px auto;
-    box-shadow: 0 0 20px rgba(157, 0, 255, 0.5), 0 0 40px rgba(0, 242, 255, 0.2);
-    border-radius: 2px;
-    animation: expandDivider 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    max-width: 400px;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(180, 0, 255, 0.6),
+            rgba(0, 229, 255, 0.8),
+            rgba(180, 0, 255, 0.6),
+            transparent);
+    margin: 0 auto 55px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+    border-radius: 1px;
+    animation: expandDivider 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
 }
 
 @keyframes expandDivider {
@@ -56,88 +69,86 @@
     }
 
     to {
-        width: 450px;
+        width: 400px;
         opacity: 1;
     }
 }
 
-/* The Timing Card */
+/* Timing card */
 .timing-card-minimal {
-    background: rgba(8, 8, 18, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-top: 3px solid transparent;
-    background-clip: padding-box;
-    border-radius: 20px;
-    padding: 50px 60px;
-    max-width: 750px;
+    background: rgba(7, 7, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 22px;
+    padding: 55px 65px;
+    max-width: 720px;
     width: 90%;
     margin: 0 auto;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    text-align: center;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
     position: relative;
     overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(0, 229, 255, 0.04) inset;
 }
 
-/* Gradient top border */
+/* Animated gradient top border */
 .timing-card-minimal::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue), var(--accent-purple));
-    background-size: 200% 100%;
-    animation: borderShimmer 3s linear infinite;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-purple, #b400ff), var(--neon-cyan, #00e5ff), var(--neon-gold, #ffcc00), var(--neon-cyan, #00e5ff), var(--neon-purple, #b400ff));
+    background-size: 300% 100%;
+    animation: borderFlow 4s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
 }
 
-@keyframes borderShimmer {
+@keyframes borderFlow {
     0% {
-        background-position: 0% 50%;
+        background-position: 0% 0;
     }
 
     100% {
-        background-position: 200% 50%;
+        background-position: 300% 0;
     }
 }
 
-/* Corner accents */
+/* Soft inner glow */
 .timing-card-minimal::after {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 20px;
-    background: radial-gradient(ellipse at 50% 0%, rgba(157, 0, 255, 0.06) 0%, transparent 65%);
+    border-radius: 22px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0, 229, 255, 0.04) 0%, transparent 65%);
     pointer-events: none;
 }
 
 .timing-card-minimal:hover {
     transform: translateY(-8px);
     box-shadow:
-        0 40px 100px rgba(0, 0, 0, 0.6),
-        0 0 60px rgba(157, 0, 255, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 45px 100px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(0, 229, 255, 0.06),
+        0 0 0 1px rgba(0, 229, 255, 0.08) inset;
 }
 
+/* Header label */
 .timing-header {
-    font-family: 'Share Tech Mono', 'Rajdhani', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 6px;
-    color: rgba(255, 255, 255, 0.3);
-    font-weight: 400;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 7px;
+    color: rgba(255, 255, 255, 0.25);
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 18px;
     position: relative;
     z-index: 2;
 }
@@ -145,115 +156,161 @@
 .timing-header::before,
 .timing-header::after {
     content: '';
-    width: 30px;
+    width: 28px;
     height: 1px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
 }
 
+/* The big time display */
 .timing-main {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
+    font-size: clamp(1.8rem, 5vw, 3rem);
     font-weight: 700;
     color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(157, 0, 255, 0.35);
-    padding: 18px 50px;
+    letter-spacing: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(180, 0, 255, 0.3);
+    padding: 20px 55px;
     border-radius: 12px;
-    box-shadow:
-        0 0 40px rgba(157, 0, 255, 0.12),
-        inset 0 0 20px rgba(157, 0, 255, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    letter-spacing: 3px;
     position: relative;
     z-index: 2;
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 0 40px rgba(180, 0, 255, 0.1),
+        inset 0 0 30px rgba(180, 0, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(5px);
 }
 
+/* Subtext */
 .timing-subtext {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
-    color: var(--accent-blue);
+    font-size: 0.85rem;
+    color: rgba(0, 229, 255, 0.55);
     font-weight: 500;
     letter-spacing: 2px;
-    opacity: 0.7;
     position: relative;
     z-index: 2;
 }
 
+/* Live clock pill */
 .minimal-clock {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 10px 22px;
+    background: rgba(255, 255, 255, 0.025);
+    padding: 10px 24px;
     border-radius: 30px;
-    font-family: 'Share Tech Mono', 'Rajdhani', sans-serif;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1rem;
-    font-weight: 400;
+    font-family: 'Share Tech Mono', monospace;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
     letter-spacing: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     z-index: 2;
 }
 
 .minimal-clock:hover {
-    border-color: rgba(157, 0, 255, 0.3);
-    background: rgba(157, 0, 255, 0.06);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(157, 0, 255, 0.15);
+    border-color: rgba(0, 229, 255, 0.2);
+    background: rgba(0, 229, 255, 0.04);
+    color: rgba(200, 230, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.08);
 }
 
 .clock-icon {
-    font-size: 1rem;
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 /* =========================================
- * MOBILE RESPONSIVENESS
+ * RESPONSIVE
  * ========================================= */
 @media (max-width: 768px) {
-    .section-title.large-glow {
-        font-size: 2rem;
-        letter-spacing: 3px;
+    #timing {
+        padding: 80px 0;
     }
 
     .timing-card-minimal {
-        padding: 35px 25px;
+        padding: 40px 28px;
         width: 95%;
+        gap: 18px;
+        border-radius: 16px;
     }
 
     .timing-main {
-        font-size: 2rem;
-        padding: 15px 30px;
+        padding: 16px 28px;
+        font-size: 1.6rem;
         letter-spacing: 2px;
     }
 
     .neon-divider {
-        width: 200px;
+        max-width: 240px;
     }
 
     @keyframes expandDivider {
         to {
-            width: 200px;
+            width: 240px;
             opacity: 1;
         }
     }
 }
 
 @media (max-width: 480px) {
-    .timing-main {
-        font-size: 1.6rem;
-        padding: 12px 20px;
+    #timing {
+        padding: 60px 0;
     }
 
-    .section-title.large-glow {
-        font-size: 1.6rem;
+    .timing-card-minimal {
+        padding: 32px 18px;
+        width: 100%;
+        gap: 16px;
+        border-radius: 14px;
+    }
+
+    .timing-main {
+        font-size: 1.25rem;
+        padding: 13px 18px;
+        letter-spacing: 1.5px;
     }
 
     .timing-subtext {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        line-height: 1.9;
+        /* Make the pipe-separated text wrap nicely */
+        white-space: normal;
+        text-align: center;
+    }
+
+    .minimal-clock {
+        font-size: 0.78rem;
+        padding: 8px 14px;
+    }
+
+    .timing-header {
+        font-size: 0.62rem;
+        letter-spacing: 4px;
+    }
+}
+
+@media (max-width: 360px) {
+    .timing-main {
+        font-size: 1.1rem;
+        padding: 12px 14px;
+        letter-spacing: 1px;
+    }
+
+    .section-title.large-glow {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+
+    .neon-divider {
+        max-width: 180px;
+    }
+
+    .minimal-clock {
+        font-size: 0.72rem;
+        padding: 7px 12px;
     }
 }
